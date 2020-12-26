@@ -11,19 +11,23 @@ def is_prime(num):
     return "The number is " + ("" if (num!=1 and num%2!=0 and sum([num%a==0 for a in range(3,floor(sqrt(num)) + 1)])==0) else "not ") + "a prime number."
 
 def num_properties(num):
-    return [even_or_odd(num), is_ten_multiple(num), is_five_multiple(num), is_prime(num)]
+    return [is_prime(num), even_or_odd(num), is_ten_multiple(num), is_five_multiple(num)]
 
 x, y = [int(a) for a in input("Enter the start and end numbers(+ve) with a space in between : ").split()]
 random_num = random.randint(x,y+1)
 num_prop = num_properties(random_num)
 i = 1
-print("You will have four chances to guess the number.")
-while(i<=4):
+print("You will have five chances to guess the number.")
+while(i<=5):
     try:
         curr_guess = int(input("Enter your guess : "))
         if(curr_guess==random_num) :
+            print("Congrats")
             break;
-        print("Hint : " + num_prop[i-1])
+        if i==1:
+            print("The number is " + ("less" if curr_guess>random_num else "greater") + " than your guess.")
+        else:
+            print("Hint : " + num_prop[i-2])
         i += 1
     except ValueError as ve:
         print("Please enter an integer only.")
